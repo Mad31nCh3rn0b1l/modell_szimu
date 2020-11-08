@@ -1,105 +1,105 @@
 public class Felfutas
+{
+	private float adat_tar;
+	private int T_tar;
+	private float ido_tar;
+	private float T_ido_fel;
+	private float T_ido_le;
+	private float fel_ido;
+	private float le_ido;
+	private int alap;
+	private int T;
+
+	public Felfutas(float init_adat, int init_T, float init_T_ido_fel = -1.0f, float init_T_ido_le = -1.0f, float init_fel_ido = -1.0f, float init_le_ido = -1.0f, int init_alap = 1)
+	{
+		adat_tar = init_adat;
+		T_tar = 1;
+		ido_tar = 0;
+		T = init_T;
+		T_ido_fel = init_T_ido_fel;
+		T_ido_le = init_T_ido_le;
+		fel_ido = init_fel_ido;
+		le_ido = init_le_ido;
+		alap = init_alap;
+	}
+
+	public float work(float adat)
+	{
+		if (T_ido_fel == -1.0f)
+			T_ido_fel = 0.3125f * fel_ido;
+		if (T_ido_le == -1.0f)
+			T_ido_le = 0.3125f * le_ido;
+
+		if (adat != 0 && T_tar < 0 || adat == 0 && T_tar > 0)
+			T_tar *= -1;
+
+		switch (T_tar)
 		{
-			private float adat_tar;
-			private int T_tar;
-			private float ido_tar;
-			private float T_ido_fel;
-			private float T_ido_le;
-			private float fel_ido;
-			private float le_ido;
-			private int alap;
-			private int T;
-
-			public Felfutas(float init_adat, int init_T, float init_T_ido_fel = -1.0f, float init_T_ido_le = -1.0f, float init_fel_ido = -1.0f, float init_le_ido = -1.0f, int init_alap = 1)
-			{
-				adat_tar = init_adat;
-				T_tar = 1;
-				ido_tar = 0;
-				T = init_T;
-				T_ido_fel = init_T_ido_fel;
-				T_ido_le = init_T_ido_le;
-				fel_ido = init_fel_ido;
-				le_ido = init_le_ido;
-				alap = init_alap;
-			}
-
-			public float work(float adat)
-			{
-				if (T_ido_fel == -1.0f)
-					T_ido_fel = 0.3125f * fel_ido;
-				if (T_ido_le == -1.0f)
-					T_ido_le = 0.3125f * le_ido;
-
-				if (adat != 0 && T_tar < 0 || adat == 0 && T_tar > 0)
-					T_tar *= -1;
-
-				switch (T_tar)
-				{
-					case 1:
-						adat_tar += adat * 0.5f * (T_ido_fel / alap);
-						break;
-					case 2:
-						adat_tar += adat * 0.25f * (T_ido_fel / alap);
-						break;
-					case 3:
-						adat_tar += adat * 0.125f * (T_ido_fel / alap);
-						break;
-					case 4:
-						adat_tar += adat * 0.0625f * (T_ido_fel / alap);
-						break;
-					case 5:
-						adat_tar += adat * 0.03125f * (T_ido_fel / alap);
-						break;
-					case 6:
-						adat_tar += adat * 0.015625f * (T_ido_fel / alap);
-						break;
-					case 7:
-						adat_tar += adat * 0.0078125f * (T_ido_fel / alap);
-						break;
-					case 8:
-						adat_tar += adat_tar >= adat ? 0 : adat * 0.0078125f * (T_ido_fel / alap);
-						break;
-					case -8:
-						adat_tar -= adat * 0.5f * (T_ido_le / alap);
-						break;
-					case -7:
-						adat_tar -= adat * 0.25f * (T_ido_le / alap);
-						break;
-					case -6:
-						adat_tar -= adat * 0.125f * (T_ido_le / alap);
-						break;
-					case -5:
-						adat_tar -= adat * 0.0625f * (T_ido_le / alap);
-						break;
-					case -4:
-						adat_tar -= adat * 0.03125f * (T_ido_le / alap);
-						break;
-					case -3:
-						adat_tar -= adat * 0.015625f * (T_ido_le / alap);
-						break;
-					case -2:
-						adat_tar -= adat * 0.0078125f * (T_ido_le / alap);
-						break;
-					case -1:
-						adat_tar -= adat_tar <= adat ? 0 : adat * 0.0078125f * (T_ido_le / alap);
-						break;
-					default:
-						break;
-				}
-
-				ido_tar += T> 0 ? alap : -alap;
-
-				if (ido_tar >= T_ido_fel && T > 0) 
-				{
-					T_tar += T_tar < T ? 1 : 0;
-					ido_tar = 0;
-				}
-				else if (ido_tar <= 0 && T < 0)
-				{
-					T_tar -= T_tar < -1 ? 1 : 0;
-					ido_tar = T_ido_le;
-				}
-
-				return adat_tar;
-			}
+			case 1:
+				adat_tar += adat * 0.5f * (T_ido_fel / alap);
+				break;
+			case 2:
+				adat_tar += adat * 0.25f * (T_ido_fel / alap);
+				break;
+			case 3:
+				adat_tar += adat * 0.125f * (T_ido_fel / alap);
+				break;
+			case 4:
+				adat_tar += adat * 0.0625f * (T_ido_fel / alap);
+				break;
+			case 5:
+				adat_tar += adat * 0.03125f * (T_ido_fel / alap);
+				break;
+			case 6:
+				adat_tar += adat * 0.015625f * (T_ido_fel / alap);
+				break;
+			case 7:
+				adat_tar += adat * 0.0078125f * (T_ido_fel / alap);
+				break;
+			case 8:
+				adat_tar += adat_tar >= adat ? 0 : adat * 0.0078125f * (T_ido_fel / alap);
+				break;
+			case -8:
+				adat_tar -= adat * 0.5f * (T_ido_le / alap);
+				break;
+			case -7:
+				adat_tar -= adat * 0.25f * (T_ido_le / alap);
+				break;
+			case -6:
+				adat_tar -= adat * 0.125f * (T_ido_le / alap);
+				break;
+			case -5:
+				adat_tar -= adat * 0.0625f * (T_ido_le / alap);
+				break;
+			case -4:
+				adat_tar -= adat * 0.03125f * (T_ido_le / alap);
+				break;
+			case -3:
+				adat_tar -= adat * 0.015625f * (T_ido_le / alap);
+				break;
+			case -2:
+				adat_tar -= adat * 0.0078125f * (T_ido_le / alap);
+				break;
+			case -1:
+				adat_tar -= adat_tar <= adat ? 0 : adat * 0.0078125f * (T_ido_le / alap);
+				break;
+			default:
+				break;
 		}
+
+		ido_tar += T> 0 ? alap : -alap;
+
+		if (ido_tar >= T_ido_fel && T > 0) 
+		{
+			T_tar += T_tar < T ? 1 : 0;
+			ido_tar = 0;
+		}
+		else if (ido_tar <= 0 && T < 0)
+		{
+			T_tar -= T_tar < -1 ? 1 : 0;
+			ido_tar = T_ido_le;
+		}
+
+		return adat_tar;
+	}
+}
