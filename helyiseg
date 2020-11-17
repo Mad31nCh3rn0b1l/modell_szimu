@@ -1,0 +1,34 @@
+public class Helyiseg
+{
+	private float P_int = 0;			
+	private float V;
+	private float Gbe;
+	private float Gki;
+	private float G;
+	private int ido_alap;
+	private bool telj_le = false;
+  
+	public Helyiseg(float init_V = -1.0f, float init_G = -1.0f, float init_Gbe = -1.0f, float init_Gki = -1.0f, int init_alap = 1)
+	{
+		V = init_V;
+		G = init_G;
+		Gbe = init_Gbe;
+		Gki = init_Gki;
+		ido_alap = init_alap;
+	}
+			
+  public float work(float adat)
+	{
+		telj_le = P_int / V > adat * Gbe / G? true : false;
+
+		P_int = P_int - (Gki * ido_alap / 1000 / V) * P_int + adat * ido_alap / 1000;
+
+		if (telj_le && P_int / V < adat * Gbe / G || !telj_le && P_int / V > adat * Gbe / G)
+		{
+			P_int = adat * Gbe / G * V;
+			telj_le = false;
+		}
+
+		return P_int;
+	}
+}
