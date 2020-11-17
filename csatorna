@@ -1,0 +1,27 @@
+public class Csatorna
+{
+	private float[] adat_tar;
+	private int tag = 2; //
+
+	public Csatorna(int mode = 0, float A = -1.0f, float l = -1.0f, float G = -1.0f, float v = -1.0f, float V = -1.0f, int init_alap = 1, float init_adat = 0.0f)
+	{
+		switch(mode)
+		{
+			case 1: //Állandó kersztmetszet, szállított mennyiség
+				tag = (int)((A * l / G) * 1000 / init_alap) + 1;
+				break;
+			case 2:	//Állandó keresztmetszet, áramlási sebesség
+				tag = (int)((l / v) * 1000 / init_alap) + 1;
+				break;
+			case 3: //Változó keresztmetszet vagy görbe csatorna
+				tag = (int)((V / G) * 1000 / init_alap) + 1;
+				break;
+			default:			
+				break;
+		}
+
+		adat_tar = new float[tag];
+		for (int i = 0; adat_tar.Length > i; i++)
+			adat_tar[i] = init_adat;
+	}
+}
