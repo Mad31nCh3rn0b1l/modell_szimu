@@ -7,7 +7,7 @@ public class Helyiseg
 	private float G;
 	private int ido_alap;
 	private bool telj_le = false;
-  
+	
 	public Helyiseg(float init_V = -1.0f, float init_G = -1.0f, float init_Gbe = -1.0f, float init_Gki = -1.0f, int init_alap = 1)
 	{
 		V = init_V;
@@ -17,15 +17,15 @@ public class Helyiseg
 		ido_alap = init_alap;
 	}
 			
-  public float work(float adat)
+	public float work(float adat)
 	{
-		telj_le = P_int / V > adat * Gbe / G? true : false;
+		telj_le = P_int / V > adat / G? true : false;
 
-		P_int = P_int - (Gki * ido_alap / 1000 / V) * P_int + adat * ido_alap / 1000;
+		P_int = P_int - (Gki * ido_alap / 1000 / V) * P_int + adat * Gbe / G * ido_alap / 1000;
 
-		if (telj_le && P_int / V < adat * Gbe / G || !telj_le && P_int / V > adat * Gbe / G)
+		if (telj_le && P_int / V < adat * Gbe / G || !telj_le && P_int / V > adat / G)
 		{
-			P_int = adat * Gbe / G * V;
+			P_int = adat / G * V;
 			telj_le = false;
 		}
 
